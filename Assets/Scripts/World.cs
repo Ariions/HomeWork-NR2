@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Profiling;
+using Random = UnityEngine.Random;
+
 
 // Entry point to the simulations. Technically there could be multiple worlds
 // that are be completely isolated from each other
@@ -13,6 +15,10 @@ public class World : MonoBehaviour
 	public Rect worldBounds = new Rect(-10f, -5f, 20f, 10f);
 	public Vector2 gravity = Vector2.down * 9.81f;
 	public Vector2 wind = new Vector2( 0.0f, 0.0f);
+    public Vector2 mouseClickDirection;
+    public float force = 0;
+
+    static public Vector2 spawnLocation = new Vector2(-6.0f , 0.0f);
 
 	[NonSerialized]
 	public Entities entities;
@@ -50,7 +56,22 @@ public class World : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		Profiler.BeginSample("World.Update");
+        if (Input.GetButton("Fire1"))
+        {
+            if (force <= 20)
+                force += 0.2f;
+            mouseClickDirection = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - spawnLocation).normalized;
+            
+        }
+
+        if (Input.GetMouseButtonUp(0)) {
+            
+            ShootEntity();
+            force = 0;
+            Invoke("ChangeWind", 2);
+        }
+
+        Profiler.BeginSample("World.Update");
 		foreach (var system in systems)
 		{
 			Profiler.BeginSample(system.GetType().Name);
@@ -59,4 +80,51 @@ public class World : MonoBehaviour
 		}
 		Profiler.EndSample();
 	}
+
+    void ShootEntity()
+    {
+        int id = entities.Shoot();
+
+        if (entities.flags[id].HasFlag(EntityFlags.kFlagPosition))
+        {
+            entities.AddComponent(new Entity(id), EntityFlags.kFlagGravity);
+            entities.AddComponent(new Entity(id), EntityFlags.kFlagForce);
+            entities.AddComponent(new Entity(id), EntityFlags.kFlagMove);
+            entities.AddComponent(new Entity(id), EntityFlags.kFlagCollision);
+            entities.AddComponent(new Entity(id), EntityFlags.kFlagWorldBounds);
+
+            //gravity - empty
+
+            //force
+            var forceComponent = new ForceComponent() { massInverse = Random.Range(1f, 5f), force = Vector2.zero };
+            entities.forceComponents[id] = forceComponent;
+
+            //movement
+            var moveComponent = entities.moveComponents[id];
+            moveComponent.velocity = new Vector2 (mouseClickDirection.x, mouseClickDirection.y) * force;
+            
+            //moveComponent.velocity = new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+            entities.moveComponents[id] = moveComponent;
+
+            //collition
+            var collisionComponent = new CollisionComponent();
+            if (entities.forceComponents[id].massInverse > 1e-6f)
+                collisionComponent.radius = 1.0f / entities.forceComponents[id].massInverse;
+
+            collisionComponent.coeffOfRestitution = Random.Range(0.1f, 0.9f);
+
+            entities.collisionComponents[id] = collisionComponent;
+
+            //worldboudns - empty
+
+
+            // add force in selected direction
+            
+        }     
+    }
+
+    void ChangeWind()
+    {
+        wind = new Vector2(Random.Range(-5f, 5f), Random.Range(-5f, 5f));
+    }
 }

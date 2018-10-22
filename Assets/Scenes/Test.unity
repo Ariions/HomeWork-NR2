@@ -184,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -1.39, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -219,15 +219,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   templateObject: {fileID: 1841618383888084, guid: bb5ac65117b73439fb73e9e30ea956d2,
     type: 2}
-  entityCount: 20
+  entityCount: 5
   worldBounds:
     serializedVersion: 2
     x: -10
     y: -5
-    width: 19
+    width: 17
     height: 10
   gravity: {x: 0, y: -9.81}
   wind: {x: 0, y: 0}
+  mouseClickDirection: {x: 0, y: 0}
+  force: 0
 --- !u!4 &1187221517
 Transform:
   m_ObjectHideFlags: 0

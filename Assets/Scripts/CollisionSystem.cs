@@ -11,7 +11,7 @@ public class CollisionSystem : ISystemInterface
         var entities = world.entities;
 
         velocityCache = new Vector2[entities.flags.Count];
-        
+
         // add randomized collision radius (derived from mass) and coefficient of restitution
         for (var i = 0; i < entities.flags.Count; i++)
         {
@@ -42,8 +42,11 @@ public class CollisionSystem : ISystemInterface
     // https://gamedevelopment.tutsplus.com/tutorials/how-to-create-a-custom-2d-physics-engine-the-basics-and-impulse-resolution--gamedev-6331
     public void Update(World world, float time = 0, float deltaTime = 0)
     {
-        var entities = world.entities;
         
+
+        var entities = world.entities;
+
+        velocityCache = new Vector2[entities.flags.Count];
         // Init velocity cache
         for (var i = 0; i < entities.flags.Count; i++)
         {            

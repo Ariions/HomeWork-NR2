@@ -72,16 +72,16 @@
     <Compile Include="Assets\Scripts\WorldBoundsSystem.cs" />
     <None Include="Assets\Materials\UnlitShader.shader" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/Arnas_PC/Documents/GitHub/HomeWorkForUnity/HomeWork NR2/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/Arnas_PC/Documents/GitHub/HomeWork NR2/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/Arnas_PC/Documents/GitHub/HomeWorkForUnity/HomeWork NR2/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Arnas_PC/Documents/GitHub/HomeWork NR2/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/Arnas_PC/Documents/GitHub/HomeWorkForUnity/HomeWork NR2/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/Arnas_PC/Documents/GitHub/HomeWork NR2/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/Arnas_PC/Documents/GitHub/HomeWorkForUnity/HomeWork NR2/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Arnas_PC/Documents/GitHub/HomeWork NR2/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/2018.1/2018.1.9f2_a6cc294b73ee/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

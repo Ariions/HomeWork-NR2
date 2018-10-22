@@ -82,4 +82,12 @@ public class Entities
 			AddEntity(new Vector2(Random.Range(-7.5f, 7.5f), Random.Range(-4f, 4f)));
 		}
 	}
+
+    public int Shoot() {
+
+        var SpawnedEntity = AddEntity(World.spawnLocation);
+
+        return SpawnedEntity.id;
+    }
+
 }
