@@ -18,7 +18,9 @@ public class World : MonoBehaviour
     public Vector2 mouseClickDirection;
     public float force = 0;
 
-    static public Vector2 spawnLocation = new Vector2(-6.0f , 0.0f);
+    static public Vector2 spawnLocation = new Vector2(-9.0f , 0.0f);
+
+    public LineRenderer lineRenderer;
 
 	[NonSerialized]
 	public Entities entities;
@@ -28,6 +30,8 @@ public class World : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+        lineRenderer.SetWidth(0.2f, 0);
+
 		Profiler.BeginSample("World.Start");
 		systems = new List<ISystemInterface>();
 		entities = new Entities();
@@ -58,10 +62,15 @@ public class World : MonoBehaviour
 	{
         if (Input.GetButton("Fire1"))
         {
-            if (force <= 20)
-                force += 0.2f;
+            if (force <= 19)
+                force += 0.3f;
             mouseClickDirection = ((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - spawnLocation).normalized;
+
             
+            lineRenderer.SetPosition(1, new Vector3(mouseClickDirection.x * (force * 0.2f) -9, mouseClickDirection.y * (force * 0.2f) , 0.0f));
+            
+
+
         }
 
         if (Input.GetMouseButtonUp(0)) {
@@ -69,6 +78,7 @@ public class World : MonoBehaviour
             ShootEntity();
             force = 0;
             Invoke("ChangeWind", 2);
+            lineRenderer.SetPosition(1, new Vector3(-9.0f, 0.0f, 0.0f));
         }
 
         Profiler.BeginSample("World.Update");

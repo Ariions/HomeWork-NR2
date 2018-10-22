@@ -55,9 +55,37 @@ public class WorldBoundsSystem : ISystemInterface
                     pos.y = Mathf.Clamp(pos.y, bounds.yMin + radius, bounds.yMax - radius);
                 }
 
+                #region Bucket Collition
+
+                // left side
+                if ((pos.x + radius > 4 && pos.x - radius < 4.5) && (moveComponent.velocity.x > 0f) && pos.y - radius < 0f)
+                {
+                    moveComponent.velocity.x = -coeffOfRestitution * moveComponent.velocity.x;
+                    pos.x = 4 - radius;
+                }
+
+                // right side
+                if((pos.x - radius < 5 && pos.x - radius > 4.5) && (moveComponent.velocity.x < 0f) && pos.y - radius < 0f)
+                {
+                    moveComponent.velocity.x = -coeffOfRestitution * moveComponent.velocity.x;
+                    pos.x = 5 + radius;
+
+                }
+
+                // top
+                if(((pos.y - radius < 0f && pos.y - radius > -0.5f) && (moveComponent.velocity.y < 0f)) && (pos.x - radius < 5 && pos.x - radius > 4))
+                {
+                    moveComponent.velocity.y = -coeffOfRestitution * moveComponent.velocity.y;
+                    pos.y = 0 + radius;
+                }
+                
+                #endregion
+
                 entities.moveComponents[i] = moveComponent;
                 entities.positions[i] = pos;
             }
+
+            
         }
     }
 }
